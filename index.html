@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fffaf5">
+  <title>Donaciones | Los Gatos Mamengos</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: #fffaf5;
+      color: #302b29;
+      font-family: Arial, sans-serif;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 420px;
+      padding: 36px 24px;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 8px 35px rgba(0,0,0,.08);
+      text-align: center;
+    }
+
+    .cat { font-size: 54px; }
+
+    h1 {
+      font-size: 28px;
+      margin: 14px 0;
+    }
+
+    p {
+      line-height: 1.6;
+      color: #666;
+    }
+
+    .alias-box {
+      margin-top: 28px;
+      padding: 16px;
+      background: #f7f5f2;
+      border-radius: 14px;
+    }
+
+    .label {
+      font-size: 13px;
+      color: #777;
+      margin-bottom: 12px;
+    }
+
+    .alias-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .alias {
+      font-size: 17px;
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 12px 15px;
+      background: #302b29;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:active {
+      transform: scale(.97);
+    }
+
+    .instructions {
+      font-size: 14px;
+      margin-top: 20px;
+    }
+
+    .thanks {
+      margin-top: 26px;
+      font-size: 14px;
+      color: #a36a58;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+    <div class="cat">🐈❤️</div>
+
+    <h1>Los Gatos Mamengos</h1>
+
+    <p>
+      Danos una mano para seguir ayudando
+      a los gatos sin hogar.
+    </p>
+
+    <div class="alias-box">
+      <div class="label">Alias para transferir</div>
+
+      <div class="alias-row">
+        <span class="alias" id="alias">
+          gatos.mamengos.mp
+        </span>
+
+        <button onclick="copiarAlias()" id="copyButton">
+          📋 Copiar
+        </button>
+      </div>
+    </div>
+
+    <p class="instructions">
+      Copiá el alias y ahora pegalo desde tu app
+      para transferir.
+    </p>
+
+    <div class="thanks">
+      🐾 Cada aporte cuenta. ¡Gracias!
+    </div>
+  </main>
+
+  <script>
+    async function copiarAlias() {
+      const alias = "gatos.mamengos.mp";
+      const button = document.getElementById("copyButton");
+
+      try {
+        await navigator.clipboard.writeText(alias);
+      } catch (error) {
+        const campo = document.createElement("textarea");
+        campo.value = alias;
+        campo.style.position = "fixed";
+        campo.style.opacity = "0";
+        document.body.appendChild(campo);
+        campo.focus();
+        campo.select();
+
+        const copiado = document.execCommand("copy");
+        document.body.removeChild(campo);
+
+        if (!copiado) {
+          alert("No se pudo copiar. Mantené presionado el alias para copiarlo.");
+          return;
+        }
+      }
+
+      button.textContent = "✓ Copiado";
+      setTimeout(() => {
+        button.textContent = "📋 Copiar";
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
